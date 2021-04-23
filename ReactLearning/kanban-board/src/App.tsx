@@ -56,7 +56,7 @@ class App extends React.Component<{}, State> {
     this.state.columns.push({
       id: columnId,
       name: "tempName" + columnId,
-      color: "red",
+      color: "#404552",
       tasks: [],
     });
   }
@@ -78,6 +78,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <Header addColumn={this.addColumn} addTask={this.addTask} />
+        <div className='panel'>
         {this.state.columns.map((column, index) => (
           <KBColumn
             color={column.color}
@@ -88,6 +89,7 @@ class App extends React.Component<{}, State> {
             tasks={column.tasks}
           />
         ))}
+          </div>
       </div>
     );
   }

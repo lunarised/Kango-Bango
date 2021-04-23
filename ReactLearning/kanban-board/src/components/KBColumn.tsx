@@ -8,7 +8,7 @@ type KBColumnProps = {
   onDelete?: (id: number) => void;
 };
 const defaultProps: KBColumnProps = {
-  color: "#00cc00",
+  color: "#404552",
   title: "waah",
   tasks: [],
   id: -1,

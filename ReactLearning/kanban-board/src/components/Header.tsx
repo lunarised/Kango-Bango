@@ -6,7 +6,7 @@ type HeaderProps = {
 };
 const Header = (props: HeaderProps) => {
   return (
-    <div className="header" style={{ backgroundColor: "grey", height: 60 }}>
+    <div className="header" style={{  height: 60 }}>
       <h1
         style={{
           float: "left",

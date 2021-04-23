@@ -1,35 +1,38 @@
-.App {
-  text-align: center;
+html {
+  background-color: #383c4a;
 }
 
-
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.header {
+  color: #ddd;
+  background-color: #2a2e3a;
+  vertical-align: middle;
 }
+.header > button {
+  height: 100%;
+  display: block;
+  float: right;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 150px;
+  font-size: 16pt;
+  color: #ddd;
+  border-style: line;
 
-.App-link {
-  color: #61dafb;
+  background-color: #404552;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+ 
+/* For some reason, the CSS i need to use to get this to work isn't coming to me >:( */
 .KBColumn {
+  text-align: center;
   display: block;
   float: left;
-  width: 200px;
+  width:initial;
+  flex-grow:inherit;
+  border-color: #ddd;
+  border-width: 2px;
+  border-style: solid;
+  color: "orange";
+}
+.panel{
+  width: 100%;
 }

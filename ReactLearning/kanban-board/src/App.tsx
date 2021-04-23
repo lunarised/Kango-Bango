@@ -2,7 +2,7 @@ import React from "react";
 import KBColumn from "./components/KBColumn";
 import "./App.css";
 import Header from "./components/Header";
-import Task from "./types/Task"
+import Task from "./types/Task";
 
 type Column = {
   id: number;
@@ -10,8 +10,6 @@ type Column = {
   color: string;
   tasks: Task[];
 };
-
-
 
 type State = {
   columns: Column[];
@@ -33,13 +31,13 @@ class App extends React.Component<{}, State> {
           id: 1,
           name: "Harry",
           color: "green",
-          tasks: []
+          tasks: [],
         },
         {
           id: 2,
           name: "Potter",
           color: "red",
-          tasks: []
+          tasks: [],
         },
       ],
     };
@@ -59,29 +57,27 @@ class App extends React.Component<{}, State> {
       id: columnId,
       name: "tempName" + columnId,
       color: "red",
-      tasks: []
+      tasks: [],
     });
   }
 
-  addTask(){
-    
-    if (this.state.columns.length > 0){
+  addTask() {
+    if (this.state.columns.length > 0) {
       let taskId = this.state.taskIterator;
-    this.setState({ taskIterator: taskId + 1})
-      this.state.columns[0].tasks.push(
-      { id: taskId,
-        title: "Task "+ taskId,
+      this.setState({ taskIterator: taskId + 1 });
+      this.state.columns[0].tasks.push({
+        id: taskId,
+        title: "Task " + taskId,
         description: "foo",
-        priority: 'normal'        
-      }
-    )
+        priority: "normal",
+      });
     }
   }
 
   render() {
     return (
       <div className="App">
-        <Header addColumn={this.addColumn} addTask={this.addTask}/>
+        <Header addColumn={this.addColumn} addTask={this.addTask} />
         {this.state.columns.map((column, index) => (
           <KBColumn
             color={column.color}

@@ -11,12 +11,16 @@ type Column = {
 
 type State = {
   columns: Column[];
+  iterator: number;
 };
 
 class App extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
+    this.deleteColumn = this.deleteColumn.bind(this);
+    this.addColumn = this.addColumn.bind(this)
     this.state = {
+      iterator: 3,
       columns: [
         {
           id: 1,
@@ -25,7 +29,7 @@ class App extends React.Component<{}, State> {
         },
         {
           id: 2,
-          name: 'Potter',
+          name: "Potter",
           color: "red",
         },
       ],
@@ -34,16 +38,32 @@ class App extends React.Component<{}, State> {
 
   deleteColumn(id: number) {
     const { columns } = { ...this.state };
-    columns.filter((column) => column.id !== id);
-    this.setState({ columns });
+    const filteredColumns = columns.filter((column) => column.id !== id);
+    this.setState({ columns: filteredColumns });
+    console.log(this.state.columns);
+  }
+  addColumn() {
+    let columnId = this.state.iterator;
+    this.setState({ iterator: columnId + 1 });
+    this.state.columns.push({
+      id: columnId,
+      name: "tempName" + columnId,
+      color: "red",
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header addColumn={this.addColumn}/>
         {this.state.columns.map((column, index) => (
-          <KBColumn color={column.color} title={column.name} key={index} />
+          <KBColumn
+            color={column.color}
+            title={column.name}
+            key={index}
+            onDelete={this.deleteColumn}
+            id={column.id}
+          />
         ))}
       </div>
     );

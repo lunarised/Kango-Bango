@@ -72,6 +72,9 @@ class App extends React.Component<{}, State> {
         priority: "normal",
       });
     }
+    else{
+      alert("You might want to consider adding a column!")
+    }
   }
 
   render() {

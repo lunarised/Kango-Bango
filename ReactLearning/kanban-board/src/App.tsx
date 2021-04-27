@@ -60,14 +60,19 @@ class App extends React.Component<{}, State> {
     console.log(taskInstance);
     if (this.state.columns.length > 0) {
       let taskId = this.state.taskIterator;
-      let index = -1;
+      let index = -2;
       if (taskInstance !== undefined) {
         this.setState({ taskIterator: taskId + 1 });
+        console.log(this.state.columns)
+        console.log(taskInstance.column)
         let indexObj = this.state.columns.find(
           (o) => o.id === taskInstance.column
         );
         if (indexObj) {
           index = this.state.columns.indexOf(indexObj);
+        }
+        else{
+          alert("Clifford")
         }
 
         if (index >= 0) {
@@ -78,6 +83,12 @@ class App extends React.Component<{}, State> {
             priority: taskInstance.priority,
           });
         }
+        else{
+          alert("Error finding that column. Check it hasn't already been deleted!" + index)
+        }
+      }
+      else{
+        alert("Oh god, oh heck")
       }
     } else {
       alert("You might want to consider adding a column!");

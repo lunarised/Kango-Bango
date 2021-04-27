@@ -36,7 +36,11 @@ class Header extends React.Component<HeaderProps, State> {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    let {show, columnNumber} = {...this.state}
+    show = true;
+    columnNumber = this.props.columns[0].id
+    this.setState({ show, columnNumber});
+ 
   };
 
   hideModal = () => {
@@ -66,6 +70,7 @@ class Header extends React.Component<HeaderProps, State> {
   }
 
   render() {
+    
     return (
       <div className="header" style={{ height: 60 }}>
         <h1
@@ -80,7 +85,7 @@ class Header extends React.Component<HeaderProps, State> {
         </h1>
         <Modal show={this.state.show} handleClose={this.hideModal}>
           <h3> Add Task</h3>
-          <p>{this.props.columns.length}</p>
+          <p>{this.props.columns[0] && this.props.columns[0].id}</p>
           <select
             value={this.state.columnNumber}
             onChange={this.handleSelectChange}

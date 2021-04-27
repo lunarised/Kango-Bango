@@ -4,6 +4,12 @@ import "./App.css";
 import Header from "./components/Header";
 import Task from "./types/Task";
 
+type TaskPassback = {
+  title: string;
+  description: string;
+  priority: "normal" | "important" | "urgent";
+}
+
 type Column = {
   id: number;
   name: string;
@@ -61,16 +67,25 @@ class App extends React.Component<{}, State> {
     });
   }
 
-  addTask() {
+  addTask(taskInstance? :TaskPassback) {
     if (this.state.columns.length > 0) {
       let taskId = this.state.taskIterator;
-      this.setState({ taskIterator: taskId + 1 });
-      this.state.columns[0].tasks.push({
-        id: taskId,
-        title: "Task " + taskId,
-        description: "foo",
-        priority: "normal",
-      });
+
+      if (taskInstance !== undefined){
+        this.setState({ taskIterator: taskId + 1 });
+        this.state.columns[0].tasks.push({
+          id: taskId,
+          title: taskInstance.title,
+          description: taskInstance.description,
+          priority: taskInstance.priority
+        });
+      }
+      
+      
+
+
+
+
     }
     else{
       alert("You might want to consider adding a column!")

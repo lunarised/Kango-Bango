@@ -1,4 +1,3 @@
-import * as react from "react";
 import Task from "../types/Task";
 type KBColumnProps = {
   color?: string;

@@ -3,7 +3,6 @@ import KBColumn from "./components/KBColumn";
 import "./App.css";
 import Header from "./components/Header";
 import Task from "./types/Task";
-import { isThisTypeNode } from "typescript";
 type TaskPassback = {
   title: string;
   description: string;

@@ -1,20 +1,14 @@
 import React from "react";
 import Modal from "./Modal";
-import { Component } from "react";
 import Task from "../types/Task";
-
+import Column from "../types/Column"
 type TaskPassback = {
   title: string;
   description: string;
   priority: priority;
   column: number;
 };
-type Column = {
-  id: number;
-  name: string;
-  color: string;
-  tasks: Task[];
-};
+
 
 type priority = "normal" | "important" | "urgent";
 type HeaderProps = {

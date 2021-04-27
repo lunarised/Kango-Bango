@@ -2,20 +2,8 @@ import React from "react";
 import KBColumn from "./components/KBColumn";
 import "./App.css";
 import Header from "./components/Header";
-import Task from "./types/Task";
-type TaskPassback = {
-  title: string;
-  description: string;
-  priority: "normal" | "important" | "urgent";
-  column: number;
-};
-
-type Column = {
-  id: number;
-  name: string;
-  color: string;
-  tasks: Task[];
-};
+import Column from "./types/Column";
+import TaskPassback from "./types/TaskPassback";
 
 type State = {
   columns: Column[];

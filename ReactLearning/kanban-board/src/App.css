@@ -17,22 +17,21 @@ html {
   font-size: 16pt;
   color: #ddd;
   border-style: line;
-
   background-color: #404552;
 }
- 
+
 /* For some reason, the CSS i need to use to get this to work isn't coming to me >:( */
 .KBColumn {
   text-align: center;
   display: block;
   float: left;
-  width:initial;
-  flex-grow:inherit;
+  width: initial;
+  flex-grow: inherit;
   border-color: #ddd;
   border-width: 2px;
   border-style: solid;
   color: "orange";
 }
-.panel{
+.panel {
   width: 100%;
 }

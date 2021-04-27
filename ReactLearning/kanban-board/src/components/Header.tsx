@@ -1,16 +1,9 @@
 import React from "react";
 import Modal from "./Modal";
-import Task from "../types/Task";
-import Column from "../types/Column"
-type TaskPassback = {
-  title: string;
-  description: string;
-  priority: priority;
-  column: number;
-};
+import Column from "../types/Column";
+import TaskPassback from "../types/TaskPassback";
+import Priority from "../types/Priority";
 
-
-type priority = "normal" | "important" | "urgent";
 type HeaderProps = {
   addColumn: () => void;
   addTask: (taskInstance?: TaskPassback) => void;
@@ -21,7 +14,7 @@ type State = {
   show: boolean;
   titleVar: string;
   descVar: string;
-  prioVar: priority;
+  prioVar: Priority;
   columnNumber: number;
 };
 
@@ -62,7 +55,7 @@ class Header extends React.Component<HeaderProps, State> {
 
   handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
     if (event.target.id === "prioritySelect") {
-      const selectedValue = event.target.value as priority;
+      const selectedValue = event.target.value as Priority;
       this.setState({ prioVar: selectedValue });
     }
 

@@ -3,11 +3,12 @@ import KBColumn from "./components/KBColumn";
 import "./App.css";
 import Header from "./components/Header";
 import Task from "./types/Task";
-
+import { isThisTypeNode } from "typescript";
 type TaskPassback = {
   title: string;
   description: string;
   priority: "normal" | "important" | "urgent";
+  column: number;
 };
 
 type Column = {
@@ -59,6 +60,7 @@ class App extends React.Component<{}, State> {
   addColumn() {
     let columnId = this.state.columnIterator;
     this.setState({ columnIterator: columnId + 1 });
+
     this.state.columns.push({
       id: columnId,
       name: "tempName" + columnId,
@@ -68,17 +70,27 @@ class App extends React.Component<{}, State> {
   }
 
   addTask(taskInstance?: TaskPassback) {
+    console.log(taskInstance);
     if (this.state.columns.length > 0) {
       let taskId = this.state.taskIterator;
-
+      let index = -1;
       if (taskInstance !== undefined) {
         this.setState({ taskIterator: taskId + 1 });
-        this.state.columns[0].tasks.push({
-          id: taskId,
-          title: taskInstance.title,
-          description: taskInstance.description,
-          priority: taskInstance.priority,
-        });
+        let indexObj = this.state.columns.find(
+          (o) => o.id === taskInstance.column
+        );
+        if (indexObj) {
+          index = this.state.columns.indexOf(indexObj);
+        }
+
+        if (index >= 0) {
+          this.state.columns[index].tasks.push({
+            id: taskId,
+            title: taskInstance.title,
+            description: taskInstance.description,
+            priority: taskInstance.priority,
+          });
+        }
       }
     } else {
       alert("You might want to consider adding a column!");
@@ -88,7 +100,11 @@ class App extends React.Component<{}, State> {
   render() {
     return (
       <div className="App">
-        <Header addColumn={this.addColumn} addTask={this.addTask} />
+        <Header
+          addColumn={this.addColumn}
+          addTask={this.addTask}
+          columns={this.state.columns}
+        />
         <div className="panel">
           {this.state.columns.map((column, index) => (
             <KBColumn

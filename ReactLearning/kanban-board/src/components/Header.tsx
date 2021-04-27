@@ -1,17 +1,26 @@
 import React from "react";
 import Modal from "./Modal";
 import { Component } from "react";
+import Task from "../types/Task";
 
 type TaskPassback = {
   title: string;
   description: string;
   priority: priority;
+  column: number;
+};
+type Column = {
+  id: number;
+  name: string;
+  color: string;
+  tasks: Task[];
 };
 
 type priority = "normal" | "important" | "urgent";
 type HeaderProps = {
   addColumn: () => void;
   addTask: (taskInstance?: TaskPassback) => void;
+  columns: Column[];
 };
 
 type State = {
@@ -19,6 +28,7 @@ type State = {
   titleVar: string;
   descVar: string;
   prioVar: priority;
+  columnNumber: number;
 };
 
 class Header extends React.Component<HeaderProps, State> {
@@ -34,6 +44,7 @@ class Header extends React.Component<HeaderProps, State> {
       titleVar: "",
       descVar: "",
       prioVar: "normal",
+      columnNumber: props.columns[0].id,
     };
   }
 
@@ -48,18 +59,23 @@ class Header extends React.Component<HeaderProps, State> {
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const target = event.target.id;
     if (target === "titleInput") {
-      let hold = this.state.titleVar;
       this.setState({ titleVar: event.target.value });
     }
     if (target === "descInput") {
-      let hold = this.state.descVar;
       this.setState({ descVar: event.target.value });
     }
   }
 
   handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const selectedValue = event.target.value as priority;
-    this.setState({ prioVar: selectedValue });
+    if (event.target.id === "prioritySelect") {
+      const selectedValue = event.target.value as priority;
+      this.setState({ prioVar: selectedValue });
+    }
+
+    if (event.target.id === "columnSelect") {
+      const selectedValue = parseInt(event.target.value);
+      this.setState({ columnNumber: selectedValue });
+    }
   }
 
   render() {
@@ -76,6 +92,18 @@ class Header extends React.Component<HeaderProps, State> {
           Kango Bango
         </h1>
         <Modal show={this.state.show} handleClose={this.hideModal}>
+          <h3> Add Task</h3>
+          <p>{this.props.columns.length}</p>
+          <select
+            value={this.state.columnNumber}
+            onChange={this.handleSelectChange}
+            id="columnSelect"
+          >
+            {this.props.columns.map((column) => (
+              <option value={column.id}>{column.name}</option>
+            ))}
+            ;
+          </select>
           <label>
             {" "}
             Title:
@@ -91,7 +119,7 @@ class Header extends React.Component<HeaderProps, State> {
             {" "}
             Description:
             <input
-              type="text"
+              type="textarea"
               id="descInput"
               value={this.state.descVar}
               onChange={this.handleInputChange}
@@ -105,24 +133,32 @@ class Header extends React.Component<HeaderProps, State> {
             <select
               value={this.state.prioVar}
               onChange={this.handleSelectChange}
+              id="prioritySelect"
             >
               <option value="normal">Normal</option>
               <option value="important">Important</option>
               <option value="urgent">Urgent</option>
             </select>
           </label>
-
+          <br />
           <button
             onClick={() =>
               this.props.addTask({
                 title: this.state.titleVar,
                 description: this.state.descVar,
                 priority: this.state.prioVar,
+                column: this.state.columnNumber,
               })
             }
           >
-            {" "}
-            AHHHHH{" "}
+            Add Task
+          </button>
+          <button
+            onClick={() => {
+              this.hideModal();
+            }}
+          >
+            Close
           </button>
         </Modal>
         <button onClick={this.showModal}> Add task </button>

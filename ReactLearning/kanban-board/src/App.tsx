@@ -8,7 +8,7 @@ type TaskPassback = {
   title: string;
   description: string;
   priority: "normal" | "important" | "urgent";
-}
+};
 
 type Column = {
   id: number;
@@ -67,28 +67,21 @@ class App extends React.Component<{}, State> {
     });
   }
 
-  addTask(taskInstance? :TaskPassback) {
+  addTask(taskInstance?: TaskPassback) {
     if (this.state.columns.length > 0) {
       let taskId = this.state.taskIterator;
 
-      if (taskInstance !== undefined){
+      if (taskInstance !== undefined) {
         this.setState({ taskIterator: taskId + 1 });
         this.state.columns[0].tasks.push({
           id: taskId,
           title: taskInstance.title,
           description: taskInstance.description,
-          priority: taskInstance.priority
+          priority: taskInstance.priority,
         });
       }
-      
-      
-
-
-
-
-    }
-    else{
-      alert("You might want to consider adding a column!")
+    } else {
+      alert("You might want to consider adding a column!");
     }
   }
 
@@ -96,18 +89,18 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <Header addColumn={this.addColumn} addTask={this.addTask} />
-        <div className='panel'>
-        {this.state.columns.map((column, index) => (
-          <KBColumn
-            color={column.color}
-            title={column.name}
-            key={index}
-            onDelete={this.deleteColumn}
-            id={column.id}
-            tasks={column.tasks}
-          />
-        ))}
-          </div>
+        <div className="panel">
+          {this.state.columns.map((column, index) => (
+            <KBColumn
+              color={column.color}
+              title={column.name}
+              key={index}
+              onDelete={this.deleteColumn}
+              id={column.id}
+              tasks={column.tasks}
+            />
+          ))}
+        </div>
       </div>
     );
   }

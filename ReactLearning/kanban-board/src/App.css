@@ -33,7 +33,7 @@ html {
   flex-grow: inherit;
   border-color: #ddd;
   border-width: 2px;
-  min-width: 200px;
+  min-width: 300px;
   min-height: 200px;
   max-width: 25%;
   border-style: solid;
@@ -42,11 +42,7 @@ html {
   padding: 5px;
   flex-wrap: nowrap;
 }
-.panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
+
 
 .taskWrapper {
   display: flex;
@@ -68,21 +64,28 @@ html {
 }
 
 .panel {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: nowrap;
   width: 100%;
+  overflow-x:auto;
+  overflow-y: hidden;
+  height: 100%;
+  align-items: stretch;
+  background-color: lavender;
 }
 
-.modal {
-  z-index: 10;
-}
 
 .modal {
   position: fixed;
+  z-index: 20;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   color: black;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .modal-main label {
@@ -104,7 +107,6 @@ html {
 
 .modal-main button {
   display: block;
-
   text-align: center;
   background-color: green;
 }
@@ -118,7 +120,7 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 999;
+  z-index: 10;
 }
 
 .display-block {
@@ -128,3 +130,4 @@ html {
 .display-none {
   display: none;
 }
+

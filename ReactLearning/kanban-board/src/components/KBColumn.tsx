@@ -17,32 +17,43 @@ let bgc = "#666";
 const KBColumn = (props: KBColumnProps) => {
   const { color, title, tasks, onDelete, id } = { ...defaultProps, ...props };
 
-  
-    let colTasks = tasks.map((task) => {
-      if (task.priority === "urgent") {
-        bgc = "red";
-      } else if (task.priority === "important") {
-        bgc = "yellow";
-      } else if (task.priority === "normal") {
-        bgc = "blue";
-      }
+  let colTasks = tasks.map((task) => {
+    if (task.priority === "urgent") {
+      bgc = "red";
+    } else if (task.priority === "important") {
+      bgc = "yellow";
+    } else if (task.priority === "normal") {
+      bgc = "blue";
+    }
 
-      return (
-        <div style={{borderColor: "#ccc", borderWidth: "1px", borderStyle: "solid", margin: "10px"}} className="taskWrapper"> 
-          <div style={{ backgroundColor: bgc, display: "inline"}} className="prioBlock" title={task.priority}></div>
-          <div className="taskText">
-          <p> {task.title} </p>
+    return (
+      <div
+        style={{
+          borderColor: "#ccc",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          margin: "10px",
+        }}
+        className="taskWrapper"
+      >
+        <div
+          style={{ backgroundColor: bgc, display: "inline" }}
+          className="prioBlock"
+          title={task.priority}
+        ></div>
+        <div className="taskText">
+          <h3> {task.title} </h3>
 
           <p> {task.description} </p>
         </div>
-        </div>
-      );
-    });
-  
+      </div>
+    );
+  });
+
   return (
-    <div className="KBColumn" style={{ backgroundColor: color  }}>
+    <div className="KBColumn" style={{ backgroundColor: color }}>
       <h3>{title}</h3>
-    {colTasks}
+      {colTasks}
       <button
         onClick={() => {
           onDelete && onDelete(id);

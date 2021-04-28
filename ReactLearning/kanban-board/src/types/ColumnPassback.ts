@@ -1,6 +1,6 @@
 type ColumnPassback = {
-    color: string,
-    title: string
-}
+  color: string;
+  title: string;
+};
 
-export default ColumnPassback
+export default ColumnPassback;

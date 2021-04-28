@@ -4,7 +4,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Column from "./types/Column";
 import TaskPassback from "./types/TaskPassback";
-import ColumnPassback from "./types/ColumnPassback"
+import ColumnPassback from "./types/ColumnPassback";
 
 type State = {
   columns: Column[];
@@ -35,18 +35,14 @@ class App extends React.Component<{}, State> {
   addColumn(columnInstance?: ColumnPassback) {
     let columnId = this.state.columnIterator;
     this.setState({ columnIterator: columnId + 1 });
-    if (columnInstance !== undefined){
-
-    this.state.columns.push({
-      id: columnId,
-      name: columnInstance?.title,
-      color: columnInstance?.color,
-      tasks: [],
+    if (columnInstance !== undefined) {
+      this.state.columns.push({
+        id: columnId,
+        name: columnInstance?.title,
+        color: columnInstance?.color,
+        tasks: [],
+      });
     }
-    
-  
-    );
-  }
   }
 
   addTask(taskInstance?: TaskPassback) {
@@ -56,16 +52,15 @@ class App extends React.Component<{}, State> {
       let index = -2;
       if (taskInstance !== undefined) {
         this.setState({ taskIterator: taskId + 1 });
-        console.log(this.state.columns)
-        console.log(taskInstance.column)
+        console.log(this.state.columns);
+        console.log(taskInstance.column);
         let indexObj = this.state.columns.find(
           (o) => o.id === taskInstance.column
         );
         if (indexObj) {
           index = this.state.columns.indexOf(indexObj);
-        }
-        else{
-          alert("Clifford")
+        } else {
+          alert("Clifford");
         }
 
         if (index >= 0) {
@@ -75,13 +70,14 @@ class App extends React.Component<{}, State> {
             description: taskInstance.description,
             priority: taskInstance.priority,
           });
+        } else {
+          alert(
+            "Error finding that column. Check it hasn't already been deleted!" +
+              index
+          );
         }
-        else{
-          alert("Error finding that column. Check it hasn't already been deleted!" + index)
-        }
-      }
-      else{
-        alert("Oh god, oh heck")
+      } else {
+        alert("Oh god, oh heck");
       }
     } else {
       alert("You might want to consider adding a column!");

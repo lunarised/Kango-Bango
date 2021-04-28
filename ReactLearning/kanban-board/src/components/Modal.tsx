@@ -1,4 +1,3 @@
-import "./modal.css";
 
 type ModalProps = {
   handleClose: () => void;

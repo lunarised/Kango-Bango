@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import Column from "../types/Column";
 import TaskPassback from "../types/TaskPassback";
 import Priority from "../types/Priority";
-import ColumnPassback from "../types/ColumnPassback"
+import ColumnPassback from "../types/ColumnPassback";
 
 type HeaderProps = {
   addColumn: (columnInstance?: ColumnPassback) => void;
@@ -41,34 +41,31 @@ class Header extends React.Component<HeaderProps, State> {
       taskColumnNumber: -1,
       columnTitle: "",
       columnColor: "#00CC00",
-
     };
   }
 
   showTaskModal = () => {
-    if (this.props.columns.length > 0){
-    let {showTask, taskColumnNumber} = {...this.state}
-    showTask = true;
-    taskColumnNumber = this.props.columns[0].id
-    this.setState({ showTask, taskColumnNumber});
+    if (this.props.columns.length > 0) {
+      let { showTask, taskColumnNumber } = { ...this.state };
+      showTask = true;
+      taskColumnNumber = this.props.columns[0].id;
+      this.setState({ showTask, taskColumnNumber });
+    } else {
+      alert("Add a column please!");
     }
-    else{
-      alert("Add a column please!")
-    }
- 
   };
   showColumnModal = () => {
-    let {showColumn} = {...this.state}
+    let { showColumn } = { ...this.state };
     showColumn = true;
-    this.setState({showColumn})
-  }
+    this.setState({ showColumn });
+  };
 
   hideModal = () => {
     this.setState({ showTask: false });
   };
   hideColumnModal = () => {
-    this.setState({showColumn: false})
-  }
+    this.setState({ showColumn: false });
+  };
 
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const target = event.target.id;
@@ -78,11 +75,11 @@ class Header extends React.Component<HeaderProps, State> {
     if (target === "descInput") {
       this.setState({ taskDesc: event.target.value });
     }
-    if (target === "columnTitle"){
-      this.setState({columnTitle: event.target.value})
+    if (target === "columnTitle") {
+      this.setState({ columnTitle: event.target.value });
     }
-    if (target === "columnColor"){
-      this.setState({columnColor: event.target.value})
+    if (target === "columnColor") {
+      this.setState({ columnColor: event.target.value });
     }
   }
 
@@ -99,7 +96,6 @@ class Header extends React.Component<HeaderProps, State> {
   }
 
   render() {
-    
     return (
       <div className="header" style={{ height: 60 }}>
         <h1
@@ -164,16 +160,12 @@ class Header extends React.Component<HeaderProps, State> {
           <br />
           <button
             onClick={() =>
-              
               this.props.addTask({
                 title: this.state.taskTitle,
                 description: this.state.taskDesc,
                 priority: this.state.taskPrio,
                 column: this.state.taskColumnNumber,
-              }
-              
-              )
-              
+              })
             }
           >
             Add Task
@@ -187,13 +179,10 @@ class Header extends React.Component<HeaderProps, State> {
           </button>
         </Modal>
 
-            
         <Modal show={this.state.showColumn} handleClose={this.hideModal}>
+            <h3>Lets add a column! 🤔</h3>
 
-        <p> NP Love is a danger - Priscilla </p>
-
-
-        <label>
+          <label>
             {" "}
             Title:
             <input
@@ -207,7 +196,7 @@ class Header extends React.Component<HeaderProps, State> {
 
           <label>
             {" "}
-            Title:
+            Color:
             <input
               type="text"
               id="columnColor"
@@ -217,24 +206,24 @@ class Header extends React.Component<HeaderProps, State> {
           </label>
           <br />
 
+          <button
+            onClick={() =>
+              this.props.addColumn({
+                title: this.state.columnTitle,
+                color: this.state.columnColor,
+              })
+            }
+          >
+            Add Column
+          </button>
 
-      <button onClick={() =>
-      this.props.addColumn({
-        title: this.state.columnTitle,
-        color: this.state.columnColor,
-      })
-    }
-    >NP Dancing - Vicky Vale</button>
-
-
-        <button
+          <button
             onClick={() => {
               this.hideColumnModal();
             }}
           >
             Close
           </button>
-
         </Modal>
         <button onClick={this.showTaskModal}> Add task </button>
         <button onClick={this.showColumnModal}> Add column </button>

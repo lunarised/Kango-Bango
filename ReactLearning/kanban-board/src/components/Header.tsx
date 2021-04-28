@@ -180,7 +180,7 @@ class Header extends React.Component<HeaderProps, State> {
         </Modal>
 
         <Modal show={this.state.showColumn} handleClose={this.hideModal}>
-            <h3>Lets add a column! 🤔</h3>
+          <h3>Lets add a column! 🤔</h3>
 
           <label>
             {" "}

@@ -42,7 +42,7 @@ html {
   padding: 5px;
   flex-wrap: nowrap;
 }
-.panel{
+.panel {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -95,17 +95,14 @@ html {
 }
 
 .modal-main button:last-of-type {
-
   margin: auto;
   display: block;
-  
 
   background-color: darkRed;
-  color: #CCC
+  color: #ccc;
 }
 
 .modal-main button {
-
   display: block;
 
   text-align: center;

@@ -1,4 +1,3 @@
-
 type ModalProps = {
   handleClose: () => void;
   show: boolean;

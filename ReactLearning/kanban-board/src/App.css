@@ -28,6 +28,7 @@ html {
   justify-content:flex-start;
   float: left;
   width: initial;
+  position: relative;
   height: auto;
   flex-grow: inherit;
   border-color: #ddd;
@@ -42,28 +43,31 @@ html {
 
 .taskWrapper{
   display: flex;
+  min-height: 100px;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+  
+
+
 
 }
 .prioBlock{
   order: 1;
   flex: 1;
-  display: block;
-  height:100vh;
-  overflow: auto;
-  background-color: aqua;
-  width: inherit;
+  display: flex;
+  overflow:hidden;
+  
+  
+
+
 }
 .taskText{
   order: 5;
-  width: 80%;
+  flex: 5;
   height: 100%;
 }
 
 .panel {
   width: 100%;
-}
-.prioBlock:after
-{
-    content: '.';
-    visibility: hidden;
 }

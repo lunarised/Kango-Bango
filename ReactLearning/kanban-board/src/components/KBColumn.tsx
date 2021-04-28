@@ -29,7 +29,7 @@ const KBColumn = (props: KBColumnProps) => {
 
       return (
         <div style={{borderColor: "#ccc", borderWidth: "1px", borderStyle: "solid", margin: "10px"}} className="taskWrapper"> 
-          <div style={{width: "20px", height: "100%", backgroundColor: bgc, display: "inline"}} className="prioBlock"></div>
+          <div style={{ backgroundColor: bgc, display: "inline"}} className="prioBlock" title={task.priority}></div>
           <div className="taskText">
           <p> {task.title} </p>
 

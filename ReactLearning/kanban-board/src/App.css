@@ -22,16 +22,48 @@ html {
 
 /* For some reason, the CSS i need to use to get this to work isn't coming to me >:( */
 .KBColumn {
+  display: flex;
   text-align: center;
-  display: block;
+  flex-direction: column;
+  justify-content:flex-start;
   float: left;
   width: initial;
+  height: auto;
   flex-grow: inherit;
   border-color: #ddd;
   border-width: 2px;
+  min-width: 200px;
+  min-height: 800px;
   border-style: solid;
   color: "orange";
+  margin: 5px;
+  padding: 5px;
 }
+
+.taskWrapper{
+  display: flex;
+
+}
+.prioBlock{
+  order: 1;
+  flex: 1;
+  display: block;
+  height:100vh;
+  overflow: auto;
+  background-color: aqua;
+  width: inherit;
+}
+.taskText{
+  order: 5;
+  width: 80%;
+  height: 100%;
+}
+
 .panel {
   width: 100%;
+}
+.prioBlock:after
+{
+    content: '.';
+    visibility: hidden;
 }

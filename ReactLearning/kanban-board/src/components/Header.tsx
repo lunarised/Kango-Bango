@@ -3,69 +3,98 @@ import Modal from "./Modal";
 import Column from "../types/Column";
 import TaskPassback from "../types/TaskPassback";
 import Priority from "../types/Priority";
+import ColumnPassback from "../types/ColumnPassback"
 
 type HeaderProps = {
-  addColumn: () => void;
+  addColumn: (columnInstance?: ColumnPassback) => void;
   addTask: (taskInstance?: TaskPassback) => void;
   columns: Column[];
 };
 
 type State = {
-  show: boolean;
-  titleVar: string;
-  descVar: string;
-  prioVar: Priority;
-  columnNumber: number;
+  showTask: boolean;
+  taskTitle: string;
+  taskDesc: string;
+  taskPrio: Priority;
+  taskColumnNumber: number;
+  showColumn: boolean;
+  columnTitle: string;
+  columnColor: string;
 };
 
 class Header extends React.Component<HeaderProps, State> {
   constructor(props: HeaderProps) {
     super(props);
-    this.showModal = this.showModal.bind(this);
+    this.showTaskModal = this.showTaskModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.showColumnModal = this.showColumnModal.bind(true);
+    this.hideColumnModal = this.hideColumnModal.bind(this);
 
     this.state = {
-      show: false,
-      titleVar: "",
-      descVar: "",
-      prioVar: "normal",
-      columnNumber: props.columns[0].id,
+      showTask: false,
+      showColumn: false,
+      taskTitle: "",
+      taskDesc: "",
+      taskPrio: "normal",
+      taskColumnNumber: -1,
+      columnTitle: "",
+      columnColor: "#00CC00",
+
     };
   }
 
-  showModal = () => {
-    let {show, columnNumber} = {...this.state}
-    show = true;
-    columnNumber = this.props.columns[0].id
-    this.setState({ show, columnNumber});
+  showTaskModal = () => {
+    if (this.props.columns.length > 0){
+    let {showTask, taskColumnNumber} = {...this.state}
+    showTask = true;
+    taskColumnNumber = this.props.columns[0].id
+    this.setState({ showTask, taskColumnNumber});
+    }
+    else{
+      alert("Add a column please!")
+    }
  
   };
+  showColumnModal = () => {
+    let {showColumn} = {...this.state}
+    showColumn = true;
+    this.setState({showColumn})
+  }
 
   hideModal = () => {
-    this.setState({ show: false });
+    this.setState({ showTask: false });
   };
+  hideColumnModal = () => {
+    this.setState({showColumn: false})
+  }
 
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const target = event.target.id;
     if (target === "titleInput") {
-      this.setState({ titleVar: event.target.value });
+      this.setState({ taskTitle: event.target.value });
     }
     if (target === "descInput") {
-      this.setState({ descVar: event.target.value });
+      this.setState({ taskDesc: event.target.value });
+    }
+    if (target === "columnTitle"){
+      this.setState({columnTitle: event.target.value})
+    }
+    if (target === "columnColor"){
+      this.setState({columnColor: event.target.value})
     }
   }
 
   handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
     if (event.target.id === "prioritySelect") {
       const selectedValue = event.target.value as Priority;
-      this.setState({ prioVar: selectedValue });
+      this.setState({ taskPrio: selectedValue });
     }
 
     if (event.target.id === "columnSelect") {
       const selectedValue = parseInt(event.target.value);
-      this.setState({ columnNumber: selectedValue });
+      this.setState({ taskColumnNumber: selectedValue });
     }
   }
 
@@ -83,11 +112,11 @@ class Header extends React.Component<HeaderProps, State> {
         >
           Kango Bango
         </h1>
-        <Modal show={this.state.show} handleClose={this.hideModal}>
+        <Modal show={this.state.showTask} handleClose={this.hideModal}>
           <h3> Add Task</h3>
           <p>{this.props.columns[0] && this.props.columns[0].id}</p>
           <select
-            value={this.state.columnNumber}
+            value={this.state.taskColumnNumber}
             onChange={this.handleSelectChange}
             id="columnSelect"
           >
@@ -102,7 +131,7 @@ class Header extends React.Component<HeaderProps, State> {
             <input
               type="text"
               id="titleInput"
-              value={this.state.titleVar}
+              value={this.state.taskTitle}
               onChange={this.handleInputChange}
             />
           </label>
@@ -113,7 +142,7 @@ class Header extends React.Component<HeaderProps, State> {
             <input
               type="textarea"
               id="descInput"
-              value={this.state.descVar}
+              value={this.state.taskDesc}
               onChange={this.handleInputChange}
             />
           </label>
@@ -123,7 +152,7 @@ class Header extends React.Component<HeaderProps, State> {
             {" "}
             Priority:
             <select
-              value={this.state.prioVar}
+              value={this.state.taskPrio}
               onChange={this.handleSelectChange}
               id="prioritySelect"
             >
@@ -135,12 +164,16 @@ class Header extends React.Component<HeaderProps, State> {
           <br />
           <button
             onClick={() =>
+              
               this.props.addTask({
-                title: this.state.titleVar,
-                description: this.state.descVar,
-                priority: this.state.prioVar,
-                column: this.state.columnNumber,
-              })
+                title: this.state.taskTitle,
+                description: this.state.taskDesc,
+                priority: this.state.taskPrio,
+                column: this.state.taskColumnNumber,
+              }
+              
+              )
+              
             }
           >
             Add Task
@@ -153,8 +186,58 @@ class Header extends React.Component<HeaderProps, State> {
             Close
           </button>
         </Modal>
-        <button onClick={this.showModal}> Add task </button>
-        <button onClick={this.props.addColumn}> Add column </button>
+
+            
+        <Modal show={this.state.showColumn} handleClose={this.hideModal}>
+
+        <p> NP Love is a danger - Priscilla </p>
+
+
+        <label>
+            {" "}
+            Title:
+            <input
+              type="text"
+              id="columnTitle"
+              value={this.state.columnTitle}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <br />
+
+          <label>
+            {" "}
+            Title:
+            <input
+              type="text"
+              id="columnColor"
+              value={this.state.columnColor}
+              onChange={this.handleInputChange}
+            />
+          </label>
+          <br />
+
+
+      <button onClick={() =>
+      this.props.addColumn({
+        title: this.state.columnTitle,
+        color: this.state.columnColor,
+      })
+    }
+    >NP Dancing - Vicky Vale</button>
+
+
+        <button
+            onClick={() => {
+              this.hideColumnModal();
+            }}
+          >
+            Close
+          </button>
+
+        </Modal>
+        <button onClick={this.showTaskModal}> Add task </button>
+        <button onClick={this.showColumnModal}> Add column </button>
       </div>
     );
   }

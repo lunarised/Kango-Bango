@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Column from "./types/Column";
 import TaskPassback from "./types/TaskPassback";
+import ColumnPassback from "./types/ColumnPassback"
 
 type State = {
   columns: Column[];
@@ -19,21 +20,8 @@ class App extends React.Component<{}, State> {
     this.addTask = this.addTask.bind(this);
     this.state = {
       taskIterator: 1,
-      columnIterator: 3,
-      columns: [
-        {
-          id: 1,
-          name: "Harry",
-          color: "green",
-          tasks: [],
-        },
-        {
-          id: 2,
-          name: "Potter",
-          color: "red",
-          tasks: [],
-        },
-      ],
+      columnIterator: 1,
+      columns: [],
     };
   }
 
@@ -44,16 +32,21 @@ class App extends React.Component<{}, State> {
     console.log(this.state.columns);
   }
 
-  addColumn() {
+  addColumn(columnInstance?: ColumnPassback) {
     let columnId = this.state.columnIterator;
     this.setState({ columnIterator: columnId + 1 });
+    if (columnInstance !== undefined){
 
     this.state.columns.push({
       id: columnId,
-      name: "tempName" + columnId,
-      color: "#404552",
+      name: columnInstance?.title,
+      color: columnInstance?.color,
       tasks: [],
-    });
+    }
+    
+  
+    );
+  }
   }
 
   addTask(taskInstance?: TaskPassback) {

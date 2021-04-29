@@ -16,11 +16,7 @@ type State = {
 class App extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
-    /* TODO: ARROW FUNCTIONS */
-    this.deleteColumn = this.deleteColumn.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.addColumn = this.addColumn.bind(this);
-    this.addTask = this.addTask.bind(this);
+
     this.state = {
       taskIterator: initState.taskIterator,
       columnIterator: initState.columnIterator,
@@ -37,7 +33,7 @@ class App extends React.Component<{}, State> {
     Last Edited 2020/04/29 15:20
 
   */
-  deleteTask(columnID: number, taskID: number) {
+  deleteTask = (columnID: number, taskID: number) => {
     // Find Column
     let columnsNew = this.state.columns;
     const correctColunm = columnsNew.find((column) => column.id === columnID);
@@ -46,7 +42,7 @@ class App extends React.Component<{}, State> {
     }
     const corrIndex = columnsNew.indexOf(correctColunm);
 
-    // Find and Remove Task from Found Column 
+    // Find and Remove Task from Found Column
     let alteredColumn = correctColunm;
     alteredColumn.tasks = alteredColumn.tasks.filter(
       (task) => task.id !== taskID
@@ -54,7 +50,7 @@ class App extends React.Component<{}, State> {
     columnsNew[corrIndex] = alteredColumn;
     this.setState({ columns: columnsNew });
     alert("Deleted Task" + taskID + "from Col" + columnID);
-  }
+  };
 
   /* Deletes a column with a specific ID 
     @param id: The ID of the column that is to be deleted
@@ -64,13 +60,13 @@ class App extends React.Component<{}, State> {
 
     Last Edited 2020/04/27 17:30
   */
-  deleteColumn(id: number) {
+  deleteColumn = (id: number) => {
     const { columns } = { ...this.state };
 
     const filteredColumns = columns.filter((column) => column.id !== id);
     this.setState({ columns: filteredColumns });
     console.log(this.state.columns);
-  }
+  };
 
   /* Adds a column to the panel
     @param columnInstance: Data massed back from the modal which contains all the information to create a column
@@ -81,7 +77,7 @@ class App extends React.Component<{}, State> {
     Last Edited 2020/04/28 16:00
   */
 
-  addColumn(columnInstance?: ColumnPassback) {
+  addColumn = (columnInstance?: ColumnPassback) => {
     let columnId = this.state.columnIterator;
     this.setState({ columnIterator: columnId + 1 });
     if (columnInstance) {
@@ -92,7 +88,7 @@ class App extends React.Component<{}, State> {
         tasks: [],
       });
     }
-  }
+  };
 
   /* Adds a task to a specified column
     @param taskInstance: Data passed back from the modal which contains the necessary information to create the task
@@ -102,7 +98,7 @@ class App extends React.Component<{}, State> {
 
     Last Edited 2020/04/29 15:00
   */
-  addTask(taskInstance?: TaskPassback) {
+  addTask = (taskInstance?: TaskPassback) => {
     if (this.state.columns.length === 0) {
       alert("You might want to consider adding a column!");
       return;
@@ -133,7 +129,7 @@ class App extends React.Component<{}, State> {
         );
       }
     }
-  }
+  };
 
   render() {
     return (

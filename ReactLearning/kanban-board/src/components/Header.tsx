@@ -25,12 +25,6 @@ type State = {
 class Header extends React.Component<HeaderProps, State> {
   constructor(props: HeaderProps) {
     super(props);
-    this.showTaskModal = this.showTaskModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
-    this.showColumnModal = this.showColumnModal.bind(true);
-    this.hideColumnModal = this.hideColumnModal.bind(this);
 
     this.state = {
       showTask: false,
@@ -67,7 +61,7 @@ class Header extends React.Component<HeaderProps, State> {
     this.setState({ showColumn: false });
   };
 
-  handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target.id;
     if (target === "titleInput") {
       this.setState({ taskTitle: event.target.value });
@@ -81,9 +75,9 @@ class Header extends React.Component<HeaderProps, State> {
     if (target === "columnColor") {
       this.setState({ columnColor: event.target.value });
     }
-  }
+  };
 
-  handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (event.target.id === "prioritySelect") {
       const selectedValue = event.target.value as Priority;
       this.setState({ taskPrio: selectedValue });
@@ -93,7 +87,7 @@ class Header extends React.Component<HeaderProps, State> {
       const selectedValue = parseInt(event.target.value);
       this.setState({ taskColumnNumber: selectedValue });
     }
-  }
+  };
 
   render() {
     return (

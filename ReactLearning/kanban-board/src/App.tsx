@@ -49,7 +49,6 @@ class App extends React.Component<{}, State> {
     );
     columnsNew[corrIndex] = alteredColumn;
     this.setState({ columns: columnsNew });
-    alert("Deleted Task" + taskID + "from Col" + columnID);
   };
 
   /* Deletes a column with a specific ID 
@@ -89,6 +88,70 @@ class App extends React.Component<{}, State> {
       });
     }
   };
+  /* Progresses the task to the column immediately to the right
+    @param columnId: The column which the task is originally hosted at
+    @param taskId: The UID for the task
+    @return void
+
+    Bugs: None that I am aware of
+
+    Last Edited: 2020/04/30 10:30
+  */
+  progressTask = (columnId: number, taskId: number) => {
+    let columns = this.state.columns;
+    let fromColumn = columns.find((column) => column.id === columnId);
+    if (!fromColumn) {
+      alert("Initial Column not found. State bad");
+      return;
+    }
+    let fromColumnIndex = columns.indexOf(fromColumn);
+    if (!columns[fromColumnIndex + 1]) {
+      alert("There is no column to progress to. Voiding action");
+      return;
+    }
+    let toColumn = columns[fromColumnIndex + 1];
+    let movingTask = fromColumn.tasks.find((task) => task.id === taskId);
+    if (!movingTask) {
+      alert("Moving task not found. Voiding action");
+      return;
+    }
+    toColumn.tasks.push(movingTask);
+    this.deleteTask(columnId, taskId);
+    columns[fromColumnIndex + 1] = toColumn;
+    this.setState({ columns: columns });
+  };
+ /* Regresses the task to the column immediately to the left
+    @param columnId: The column which the task is originally hosted at
+    @param taskId: The UID for the task
+    @return void
+
+    Bugs: None that I am aware of
+
+    Last Edited: 2020/04/30 10:50
+  */
+  regressTask = (columnId: number, taskId: number) => {
+    let columns = this.state.columns;
+    let fromColumn = columns.find((column) => column.id === columnId);
+    if (!fromColumn) {
+      alert("Initial Column not found. State bad");
+      return;
+    }
+    let fromColumnIndex = columns.indexOf(fromColumn);
+    if (!columns[fromColumnIndex - 1]) {
+      alert("There is no column to regress to. Voiding action");
+      return;
+    }
+    let toColumn = columns[fromColumnIndex - 1];
+    let movingTask = fromColumn.tasks.find((task) => task.id === taskId);
+    if (!movingTask) {
+      alert("Moving task not found. Voiding action");
+      return;
+    }
+    toColumn.tasks.push(movingTask);
+    this.deleteTask(columnId, taskId);
+    columns[fromColumnIndex - 1] = toColumn;
+    this.setState({ columns: columns });
+  };
 
   /* Adds a task to a specified column
     @param taskInstance: Data passed back from the modal which contains the necessary information to create the task
@@ -98,6 +161,7 @@ class App extends React.Component<{}, State> {
 
     Last Edited 2020/04/29 15:00
   */
+
   addTask = (taskInstance?: TaskPassback) => {
     if (this.state.columns.length === 0) {
       alert("You might want to consider adding a column!");
@@ -147,6 +211,8 @@ class App extends React.Component<{}, State> {
               key={index}
               onDelete={this.deleteColumn}
               deleteTask={this.deleteTask}
+              progressTask={this.progressTask}
+              regressTask={this.regressTask}
               id={column.id}
               tasks={column.tasks}
             />

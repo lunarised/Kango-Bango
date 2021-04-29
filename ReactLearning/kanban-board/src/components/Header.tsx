@@ -231,4 +231,5 @@ class Header extends React.Component<HeaderProps, State> {
     );
   }
 }
+
 export default Header;

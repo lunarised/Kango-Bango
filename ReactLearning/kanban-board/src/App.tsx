@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Column from "./types/Column";
 import TaskPassback from "./types/TaskPassback";
 import ColumnPassback from "./types/ColumnPassback";
+import initState from "./state_examples/kbstate";
 
 type State = {
   columns: Column[];
@@ -19,14 +20,17 @@ class App extends React.Component<{}, State> {
     this.addColumn = this.addColumn.bind(this);
     this.addTask = this.addTask.bind(this);
     this.state = {
-      taskIterator: 1,
-      columnIterator: 1,
-      columns: [],
+      taskIterator: initState.taskIterator,
+      columnIterator: initState.columnIterator,
+      columns: initState.columns as Column[],
     };
   }
 
   deleteColumn(id: number) {
+
+
     const { columns } = { ...this.state };
+
     const filteredColumns = columns.filter((column) => column.id !== id);
     this.setState({ columns: filteredColumns });
     console.log(this.state.columns);
@@ -82,6 +86,7 @@ class App extends React.Component<{}, State> {
     } else {
       alert("You might want to consider adding a column!");
     }
+    console.log(this.state);
   }
 
   render() {

@@ -16,6 +16,7 @@ type State = {
 class App extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
+    /* TODO: ARROW FUNCTIONS */
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.addColumn = this.addColumn.bind(this);
@@ -26,25 +27,43 @@ class App extends React.Component<{}, State> {
       columns: initState.columns as Column[],
     };
   }
+  /* Deletes a task from a specific column with a specific ID
+    @param columnID: The ID of the column in which the task to be deleted resides
+    @param taskID: The ID of the task which is to be deleted
+    @return void
 
-  deleteTask(cId: number, tId: number) {
-    /* Find Column */
-    const correctColunm = this.state.columns.filter(
-      (column) => column.id === cId //Grabs the correct column according to the column ID
+    !!!Bugs: TBA
+
+    Last Edited 2020/04/29 15:20
+
+  */
+  deleteTask(columnID: number, taskID: number) {
+    // Find Column
+    let columnsNew = this.state.columns;
+    const correctColunm = columnsNew.find((column) => column.id === columnID);
+    if (!correctColunm) {
+      return;
+    }
+    const corrIndex = columnsNew.indexOf(correctColunm);
+
+    // Find and Remove Task from Found Column 
+    let alteredColumn = correctColunm;
+    alteredColumn.tasks = alteredColumn.tasks.filter(
+      (task) => task.id !== taskID
     );
-
-    let columnsNew = this.state.columns; //Clones columns. Should be done earlier???????
-    const corrIndex = columnsNew.indexOf(correctColunm[0]); //Grabs the index of the correct column. [0] is bad programming, but makes sense due to IDs being unique
-
-    /* Find and Remove Task from Found Column */
-    let alteredColumn = columnsNew[corrIndex]; //Collects a copt of the correct column. Again... unsure if timing is correct
-    alteredColumn.tasks = alteredColumn.tasks.filter((task) => task.id !== tId); //Filter all the tasks to allow all except from the wanted. Maybe could be more efficient
-                                                                                // Unsure how TS works under the hood
-    columnsNew[corrIndex] = alteredColumn; //Input the altered column into the cloned list of columns
-    this.setState({ columns: columnsNew }); //Push the cloned list with the altered column into the state
-    alert("Deleted Task" + tId + "from Col" + cId); // Test for column numbers and IDs
+    columnsNew[corrIndex] = alteredColumn;
+    this.setState({ columns: columnsNew });
+    alert("Deleted Task" + taskID + "from Col" + columnID);
   }
 
+  /* Deletes a column with a specific ID 
+    @param id: The ID of the column that is to be deleted
+    @return void
+
+    Bugs: None that i know of
+
+    Last Edited 2020/04/27 17:30
+  */
   deleteColumn(id: number) {
     const { columns } = { ...this.state };
 
@@ -53,10 +72,19 @@ class App extends React.Component<{}, State> {
     console.log(this.state.columns);
   }
 
+  /* Adds a column to the panel
+    @param columnInstance: Data massed back from the modal which contains all the information to create a column
+    @return void
+
+    Bugs: None that I am aware of
+
+    Last Edited 2020/04/28 16:00
+  */
+
   addColumn(columnInstance?: ColumnPassback) {
     let columnId = this.state.columnIterator;
     this.setState({ columnIterator: columnId + 1 });
-    if (columnInstance !== undefined) {
+    if (columnInstance) {
       this.state.columns.push({
         id: columnId,
         name: columnInstance?.title,
@@ -66,44 +94,45 @@ class App extends React.Component<{}, State> {
     }
   }
 
-  addTask(taskInstance?: TaskPassback) {
-    console.log(taskInstance);
-    if (this.state.columns.length > 0) {
-      let taskId = this.state.taskIterator;
-      let index = -2;
-      if (taskInstance !== undefined) {
-        this.setState({ taskIterator: taskId + 1 });
-        console.log(this.state.columns);
-        console.log(taskInstance.column);
-        let indexObj = this.state.columns.find(
-          (o) => o.id === taskInstance.column
-        );
-        if (indexObj) {
-          index = this.state.columns.indexOf(indexObj);
-        } else {
-          alert("Clifford");
-        }
+  /* Adds a task to a specified column
+    @param taskInstance: Data passed back from the modal which contains the necessary information to create the task
+    @return void
 
-        if (index >= 0) {
-          this.state.columns[index].tasks.push({
-            id: taskId,
-            title: taskInstance.title,
-            description: taskInstance.description,
-            priority: taskInstance.priority,
-          });
-        } else {
-          alert(
-            "Error finding that column. Check it hasn't already been deleted!" +
-              index
-          );
-        }
-      } else {
-        alert("Oh god, oh heck");
-      }
-    } else {
+    Bugs: None that I am aware of
+
+    Last Edited 2020/04/29 15:00
+  */
+  addTask(taskInstance?: TaskPassback) {
+    if (this.state.columns.length === 0) {
       alert("You might want to consider adding a column!");
+      return;
     }
-    console.log(this.state);
+
+    let taskId = this.state.taskIterator;
+    let columns = this.state.columns;
+    let index = -2;
+    if (taskInstance) {
+      this.setState({ taskIterator: taskId + 1 });
+
+      let indexObj = columns.find((o) => o.id === taskInstance.column);
+      if (indexObj) {
+        index = columns.indexOf(indexObj);
+      }
+
+      if (index >= 0) {
+        columns[index].tasks.push({
+          id: taskId,
+          title: taskInstance.title,
+          description: taskInstance.description,
+          priority: taskInstance.priority,
+        });
+      } else {
+        alert(
+          "Error finding that column. Check it hasn't already been deleted!" +
+            index
+        );
+      }
+    }
   }
 
   render() {

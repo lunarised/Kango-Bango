@@ -22,7 +22,15 @@ class KBColumn extends React.Component<KBColumnProps> {
 
 
   
-      
+  /* Creates the JSX for all the tasks in the tasks array
+    @param None
+    @return A JSX.Element[] containing each of the Divs for the task
+
+    Bugs: None that I know of
+
+    Last Edited: XXXX-XX-XX XX:XX
+
+  */
   getTaskRender = () =>{
   return this.props.tasks.map((task) => {
     if (task.priority === "urgent") {

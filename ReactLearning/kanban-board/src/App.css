@@ -62,6 +62,13 @@ html {
   flex: 5;
   height: 100%;
 }
+.actionBlock{
+  order: 10;
+  flex: 1;
+  display: flex;
+  background-color: purple;
+
+}
 
 .panel {
   display: flex;

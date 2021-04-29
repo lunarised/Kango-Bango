@@ -1,11 +1,15 @@
 import Task from "../types/Task";
 import React from 'react';
+import { FaTimes } from 'react-icons/fa'
+
+
 type KBColumnProps = {
   color: string;
   title: string;
   tasks: Task[];
   id: number;
   onDelete?: (id: number) => void;
+  deleteTask?: (cId: number, tId: number) => void;
 };
 
 
@@ -13,6 +17,10 @@ type KBColumnProps = {
 
 let bgc = "hotpink";
 class KBColumn extends React.Component<KBColumnProps> {
+
+
+
+
   
       
   getTaskRender = () =>{
@@ -45,6 +53,10 @@ class KBColumn extends React.Component<KBColumnProps> {
           <h3> {task.title} </h3>
 
           <p> {task.description} </p>
+        </div>
+        <div className="actionBlock">
+        <FaTimes  style={{color: 'red', cursor: 'pointer'}} onClick={() => this.props.deleteTask && this.props.deleteTask(this.props.id, task.id)} />
+
         </div>
       </div>
     );

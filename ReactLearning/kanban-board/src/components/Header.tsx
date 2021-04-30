@@ -66,15 +66,16 @@ class Header extends React.Component<HeaderProps, State> {
     if (target === "titleInput") {
       this.setState({ taskTitle: event.target.value });
     }
-    if (target === "descInput") {
-      this.setState({ taskDesc: event.target.value });
-    }
+
     if (target === "columnTitle") {
       this.setState({ columnTitle: event.target.value });
     }
     if (target === "columnColor") {
       this.setState({ columnColor: event.target.value });
     }
+  };
+  handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    this.setState({ taskDesc: event?.target.value });
   };
 
   handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -93,6 +94,7 @@ class Header extends React.Component<HeaderProps, State> {
     return (
       <div className="header" style={{ height: 60 }}>
         <h1
+          key="Title"
           style={{
             float: "left",
             margin: 0,
@@ -102,16 +104,23 @@ class Header extends React.Component<HeaderProps, State> {
         >
           Kango Bango
         </h1>
-        <Modal show={this.state.showTask} handleClose={this.hideModal}>
-          <h3> Add Task</h3>
-          <p>{this.props.columns[0] && this.props.columns[0].id}</p>
+
+        <Modal
+          show={this.state.showTask}
+          handleClose={this.hideModal}
+          key="addTask"
+        >
+          <h3> Add Task 🤔</h3>
           <select
             value={this.state.taskColumnNumber}
             onChange={this.handleSelectChange}
             id="columnSelect"
+            title="columnSelect"
           >
             {this.props.columns.map((column) => (
-              <option value={column.id}>{column.name}</option>
+              <option value={column.id} key={column.id}>
+                {column.name}
+              </option>
             ))}
             ;
           </select>
@@ -129,11 +138,10 @@ class Header extends React.Component<HeaderProps, State> {
           <label>
             {" "}
             Description:
-            <input
-              type="textarea"
+            <textarea
               id="descInput"
               value={this.state.taskDesc}
-              onChange={this.handleInputChange}
+              onChange={this.handleTextAreaChange}
             />
           </label>
 
@@ -145,6 +153,7 @@ class Header extends React.Component<HeaderProps, State> {
               value={this.state.taskPrio}
               onChange={this.handleSelectChange}
               id="prioritySelect"
+              title="prioSelect"
             >
               <option value="normal">Normal</option>
               <option value="important">Important</option>
@@ -172,8 +181,11 @@ class Header extends React.Component<HeaderProps, State> {
             Close
           </button>
         </Modal>
-
-        <Modal show={this.state.showColumn} handleClose={this.hideModal}>
+        <Modal
+          show={this.state.showColumn}
+          handleClose={this.hideModal}
+          key="addColumn"
+        >
           <h3>Lets add a column! 🤔</h3>
 
           <label>
@@ -219,8 +231,14 @@ class Header extends React.Component<HeaderProps, State> {
             Close
           </button>
         </Modal>
-        <button onClick={this.showTaskModal}> Add task </button>
-        <button onClick={this.showColumnModal}> Add column </button>
+        <button onClick={this.showTaskModal} key="Task Button">
+          {" "}
+          Add task{" "}
+        </button>
+        <button onClick={this.showColumnModal} key="Column Button">
+          {" "}
+          Add column{" "}
+        </button>
       </div>
     );
   }

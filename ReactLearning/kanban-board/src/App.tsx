@@ -120,7 +120,7 @@ class App extends React.Component<{}, State> {
     columns[fromColumnIndex + 1] = toColumn;
     this.setState({ columns: columns });
   };
- /* Regresses the task to the column immediately to the left
+  /* Regresses the task to the column immediately to the left
     @param columnId: The column which the task is originally hosted at
     @param taskId: The UID for the task
     @return void
@@ -217,6 +217,10 @@ class App extends React.Component<{}, State> {
               tasks={column.tasks}
             />
           ))}
+        </div>
+        <div className="footer">
+          Not to be taken seriously. Done as a practice React + TS + MobX
+          project
         </div>
       </div>
     );

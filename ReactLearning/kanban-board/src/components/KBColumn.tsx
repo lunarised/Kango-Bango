@@ -39,15 +39,7 @@ class KBColumn extends React.Component<KBColumnProps> {
       }
 
       return (
-        <div
-          style={{
-            borderColor: "#ccc",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            margin: "10px",
-          }}
-          className="taskWrapper"
-        >
+        <div key={task.id} className="taskWrapper">
           <div
             style={{ backgroundColor: bgc, display: "inline" }}
             className="prioBlock"
@@ -67,14 +59,14 @@ class KBColumn extends React.Component<KBColumnProps> {
               }
             />
             <FaLongArrowAltRight
-              style={{ color: "red", cursor: "pointer" }}
+              style={{ color: "red", cursor: "pointer", marginTop: "10px" }}
               onClick={() =>
                 this.props.progressTask &&
                 this.props.progressTask(this.props.id, task.id)
               }
             />
             <FaLongArrowAltLeft
-              style={{ color: "red", cursor: "pointer" }}
+              style={{ color: "red", cursor: "pointer", marginTop: "10px" }}
               onClick={() =>
                 this.props.regressTask &&
                 this.props.regressTask(this.props.id, task.id)
@@ -88,7 +80,11 @@ class KBColumn extends React.Component<KBColumnProps> {
 
   render() {
     return (
-      <div className="KBColumn" style={{ backgroundColor: this.props.color }}>
+      <div
+        className="KBColumn"
+        style={{ backgroundColor: this.props.color }}
+        key={this.props.id}
+      >
         <h3>{this.props.title} </h3>
         {this.getTaskRender()}
         <button
@@ -96,7 +92,7 @@ class KBColumn extends React.Component<KBColumnProps> {
             this.props.onDelete && this.props.onDelete(this.props.id);
           }}
         >
-          Delete
+          Delete Column
         </button>
       </div>
     );

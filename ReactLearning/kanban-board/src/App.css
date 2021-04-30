@@ -1,5 +1,7 @@
 html {
   background-color: #383c4a;
+
+  overflow: hidden;
 }
 
 .header {
@@ -26,66 +28,84 @@ html {
   text-align: center;
   flex-direction: column;
   justify-content: flex-start;
-  float: left;
-  width: initial;
-  position: relative;
-  height: auto;
-  flex-grow: inherit;
+  max-width: 22vw;
+  min-width: 22vw;
+
+  min-height: 25vh;
   border-color: #ddd;
   border-width: 2px;
-  min-width: 300px;
-  min-height: 200px;
-  max-width: 25%;
   border-style: solid;
-  color: "orange";
+  color: #eee;
   margin: 5px;
   padding: 5px;
   flex-wrap: nowrap;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  padding-right: 1px;
+  max-height: 88vh;
 }
-
 
 .taskWrapper {
   display: flex;
-  min-height: 100px;
   flex-direction: row;
-  align-items: stretch;
-  position: relative;
+  border-color: #ccc;
+  border-width: 2px;
+  border-style: solid;
+  margin: 2px;
 }
 .prioBlock {
   order: 1;
-  flex: 1;
+  flex: 3;
   display: flex;
   overflow: hidden;
-
-  
 }
 .taskText {
   order: 5;
-  flex: 5;
+  flex: 20;
   height: 100%;
+  overflow: auto;
 }
-.actionBlock{
+.actionBlock {
   order: 10;
   flex: 1;
   display: flex;
-  background-color: purple;
-  justify-content: flex-end;
+  background-color: #ddd;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.App {
+  display: flex;
+  align-items: stretch;
+  order: 1;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
 
+.footer {
+  display: flex;
+  order: 400;
+  color: #eee;
 }
 
 .panel {
   display: flex;
   flex: 1;
+  order: 1;
+  justify-content: flex-start;
   flex-direction: row;
   flex-wrap: nowrap;
   width: 100%;
-  overflow-x:auto;
+  overflow-x: auto;
   overflow-y: hidden;
-  height: 100%;
   align-items: stretch;
-  background-color: lavender;
+  background-color: #404552;
 }
-
 
 .modal {
   position: fixed;
@@ -140,4 +160,3 @@ html {
 .display-none {
   display: none;
 }
-

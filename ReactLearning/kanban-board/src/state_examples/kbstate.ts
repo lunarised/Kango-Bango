@@ -1,5 +1,5 @@
 let initState = {
-  taskIterator: 8,
+  taskIterator: 9,
   columnIterator: 6,
   columns: [
     {
@@ -14,6 +14,10 @@ let initState = {
             "Impliment some drag and drop functionality so that tasks can actually be moved from one column to another ",
           priority: "normal",
         },
+        { id: 8,
+        title: "Priority Changing for already made tasks",
+        description: "Project priorities change after planning. Add some functionality to address this",
+        priority: "important"}
       ],
     },
     {

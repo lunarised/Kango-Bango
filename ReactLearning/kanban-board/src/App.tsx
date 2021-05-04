@@ -220,7 +220,7 @@ class App extends React.Component<{}, State> {
         </div>
         <div className="footer">
           Not to be taken seriously. Done as a practice React + TS + MobX
-          project
+          project. Form over function... That's what I always say 
         </div>
       </div>
     );
